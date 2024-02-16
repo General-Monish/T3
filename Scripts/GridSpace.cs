@@ -21,3 +21,6 @@ public class GridSpace : MonoBehaviour
         gameController = Controller;
     }
 }
+
+
+
