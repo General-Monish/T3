@@ -7,13 +7,17 @@ using UnityEngine.UI;
 public class GridSpace : MonoBehaviour
 {
     public Button button;
-    public string playerSide;
     public TextMeshProUGUI buttonText;
+    private GameController gameController;
 
     public void SetSpace()
     {
-        buttonText.text = playerSide;
+        buttonText.text = gameController.GetPlayerSide();
         button.interactable = false;
+        gameController.EndTurn();
     }
-
+    public void setGameControllerReferance(GameController Controller)
+    {
+        gameController = Controller;
+    }
 }
