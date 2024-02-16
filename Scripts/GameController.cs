@@ -12,6 +12,7 @@ public class Player
 {
     public Image panel;
     public TextMeshProUGUI text;
+    public Button button;
 }
 
 [Serializable]
@@ -35,14 +36,16 @@ public class GameController : MonoBehaviour
     public PlayerColor activatePlayerColor;
     public PlayerColor deAactivatePlayerColor;
     bool isWinLose;
+    public GameObject choseSide;
+
     private void Awake()
     {
+        choseSide.SetActive(true);
+        SetGameControllerReferanceOnButtons();
         restartBtn.SetActive(false);
         GameOverPanel.SetActive(false);
-        SetGameControllerReferanceOnButtons();
-        playerSide = "X";
         moveCount = 0;
-        SetPlayerColors(playerX, playerO);
+        
     }
     void SetGameControllerReferanceOnButtons()
     {
@@ -51,12 +54,32 @@ public class GameController : MonoBehaviour
             Buttontextlist[i].GetComponentInParent<GridSpace>().setGameControllerReferance(this);
         }
     }
+    public void SetStartingSide(string startingSide)
+    {
+        playerSide = startingSide;
+        if (playerSide == "X")
+        {
+            SetPlayerColors(playerX, playerO);
+        }
+        else
+        {
+            SetPlayerColors(playerO, playerX);
+        }
+        StartGame();
+    }
+
+    void StartGame()
+    {
+        choseSide.SetActive(false);
+        Debug.Log("Game is started");
+        SetBoardInteractable(true);
+        setPlayerButtons(false);
+    }
 
     public string GetPlayerSide()
     {
         return playerSide;
     }
-
     public void EndTurn()
     {
         moveCount++;
@@ -103,19 +126,10 @@ public class GameController : MonoBehaviour
         {
             SetGameOverText("Its a Draw");
             restartBtn.SetActive(true);
+            SetPlayerColorsInActive();
         }
     }
 
-    void GameOver()
-    {
-        for(int i = 0; i < Buttontextlist.Length; i++)
-        {
-            Buttontextlist[i].GetComponentInParent<Button>().interactable = false;
-        }
-        SetGameOverText( playerSide + " Wins!");
-        isWinLose = true;
-        restartBtn.SetActive(true);
-    }
 
     void ChangeSides()
     {
@@ -131,18 +145,7 @@ public class GameController : MonoBehaviour
                 SetPlayerColors(playerO, playerX);
             }
         }
-       
-    }
 
-    void SetGameOverText(string value)
-    {
-        GameOverPanel.SetActive(true);
-        gameoverText.text = value;
-    }
-
-    public void ResetBtn()
-    {
-        SceneManager.LoadScene(0);
     }
 
     void SetPlayerColors(Player newPlayer, Player oldPlayer)
@@ -151,5 +154,47 @@ public class GameController : MonoBehaviour
         newPlayer.text.color = activatePlayerColor.textColor;
         oldPlayer.panel.color = deAactivatePlayerColor.panelColor;
         oldPlayer.text.color = deAactivatePlayerColor.textColor;
+    }
+
+    void GameOver()
+    {
+        isWinLose = true;
+        SetBoardInteractable(false);
+        SetGameOverText( playerSide + " Wins!");
+        restartBtn.SetActive(true);
+    }
+
+    void SetGameOverText(string value)
+    {
+        GameOverPanel.SetActive(true);
+        gameoverText.text = value;
+    }
+
+    public void ResetBtn() // ======================== Restart game here  ================================
+    {
+        SceneManager.LoadScene(0);
+        setPlayerButtons(true);
+        SetPlayerColorsInActive();
+    }
+    public void SetBoardInteractable(bool toggle)
+    {
+        Debug.Log("Board Is Interactable");
+        for (int i = 0; i < Buttontextlist.Length; i++)
+        {
+            Buttontextlist[i].GetComponentInParent<Button>().interactable = true;
+        }
+    }
+    void setPlayerButtons(bool toggle)
+    {
+        playerX.button.interactable = toggle;
+        playerO.button.interactable = toggle;
+    }
+
+    void SetPlayerColorsInActive()
+    {
+        playerX.panel.color = activatePlayerColor.panelColor;
+        playerX.text.color = activatePlayerColor.textColor;
+        playerO.panel.color = deAactivatePlayerColor.panelColor;
+        playerO.text.color = deAactivatePlayerColor.textColor;
     }
 }
