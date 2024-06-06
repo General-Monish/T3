@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     [SerializeField] GameObject pauseButton;
     [SerializeField] GameObject resumeButton;
-    [SerializeField] GameObject playButton;
+    
     [SerializeField] GameObject restartBuuton;
 
     [SerializeField] GameObject gameOverPanel;
@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
         {
             Instance = this;
         }
+
     }
 
     // Update is called once per frame
@@ -31,17 +32,13 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void PlayButton()
-    {
-        SceneManager.LoadScene("Maze");
-    }
-
     public void pauseButon()
     {
         Time.timeScale = 0;
         pauseButton.SetActive(false);
         restartBuuton.SetActive(true);
         resumeButton.SetActive(true);
+        GetComponent<AudioSource>().Stop();
     }
 
     public void resumeButon()
@@ -50,6 +47,7 @@ public class UIManager : MonoBehaviour
         pauseButton.SetActive(true);
         resumeButton.SetActive(false);
         restartBuuton.SetActive(false);
+        GetComponent<AudioSource>().Play();
     }
 
     public void restartBton()
