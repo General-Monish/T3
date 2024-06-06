@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
 {
     public TextMeshProUGUI[] Buttontextlist;
     private string playerSide;
+    public GameObject backbtnn;
 
     public GameObject GameOverPanel;
     public TextMeshProUGUI gameoverText;
@@ -48,6 +49,7 @@ public class GameController : MonoBehaviour
         choseSide.SetActive(true);
         SetGameControllerReferanceOnButtons();
         restartBtn.SetActive(false);
+        backbtnn.SetActive(false);
         GameOverPanel.SetActive(false);
         moveCount = 0;
         playerMove = true;
@@ -146,40 +148,8 @@ public class GameController : MonoBehaviour
             GameOver();
         }
 
-        // ================================= computer side =========================================================================================
+        
 
-        //if (Buttontextlist[0].text == computerSide && Buttontextlist[1].text == computerSide && Buttontextlist[2].text == computerSide)
-        //{
-        //    GameOver();
-        //}
-        //if (Buttontextlist[3].text == computerSide && Buttontextlist[4].text == computerSide && Buttontextlist[5].text == computerSide)
-        //{
-        //    GameOver();
-        //}
-        //if (Buttontextlist[6].text == computerSide && Buttontextlist[7].text == computerSide && Buttontextlist[8].text == computerSide)
-        //{
-        //    GameOver();
-        //}
-        //if (Buttontextlist[0].text == computerSide && Buttontextlist[3].text == computerSide && Buttontextlist[6].text == computerSide)
-        //{
-        //    GameOver();
-        //}
-        //if (Buttontextlist[1].text == computerSide && Buttontextlist[4].text == computerSide && Buttontextlist[7].text == computerSide)
-        //{
-        //    GameOver();
-        //}
-        //if (Buttontextlist[2].text == computerSide && Buttontextlist[5].text == computerSide && Buttontextlist[8].text == computerSide)
-        //{
-        //    GameOver();
-        //}
-        //if (Buttontextlist[0].text == computerSide && Buttontextlist[4].text == computerSide && Buttontextlist[8].text == computerSide)
-        //{
-        //    GameOver();
-        //}
-        //if (Buttontextlist[2].text == computerSide && Buttontextlist[4].text == computerSide && Buttontextlist[6].text == computerSide)
-        //{
-        //    GameOver();
-        //}
         Draw();
         ChangeSides();
     }
@@ -190,6 +160,7 @@ public class GameController : MonoBehaviour
         {
             SetGameOverText("Its a Draw");
             restartBtn.SetActive(true);
+            backbtnn.SetActive(true);
             SetPlayerColorsInActive();
         }
     }
@@ -228,6 +199,7 @@ public class GameController : MonoBehaviour
         SetBoardInteractable(false);
         SetGameOverText( playerSide + " Wins!");
         restartBtn.SetActive(true);
+        backbtnn.SetActive(true);
     }
 
     void SetGameOverText(string value)
@@ -238,11 +210,15 @@ public class GameController : MonoBehaviour
 
     public void ResetBtn() // ======================== Restart game here  ================================
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         setPlayerButtons(true);
         SetPlayerColorsInActive();
-        //playerMove = true;
-        //delay = 10;
+       
+    }
+
+   public void backbtn()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
     public void SetBoardInteractable(bool toggle)
     {

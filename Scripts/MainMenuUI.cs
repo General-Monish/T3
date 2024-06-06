@@ -54,13 +54,13 @@ public class MainMenuUI : MonoBehaviour
       /*  Fadeout();*/
         SoundUI();
         StartCoroutine(DelayLevel());
+        SceneManager.LoadScene(1);
       
     }
     public void AIbtn()
     {
         SoundUI();
-        StartCoroutine(DelayLevel());
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     IEnumerator DelayLevel()

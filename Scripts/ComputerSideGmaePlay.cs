@@ -30,6 +30,7 @@ public class ComputerSideGmaePlay : MonoBehaviour
     public TextMeshProUGUI gameoverText;
     int moveCount;
     public GameObject restartBtn;
+    public GameObject backbttt;
 
     public Player playerX;
     public Player playerO;
@@ -48,6 +49,7 @@ public class ComputerSideGmaePlay : MonoBehaviour
         choseSide.SetActive(true);
         SetGameControllerReferanceOnButtons();
         restartBtn.SetActive(false);
+        backbttt.SetActive(false);
         GameOverPanel.SetActive(false);
         moveCount = 0;
         playerMove = true;
@@ -190,6 +192,7 @@ public class ComputerSideGmaePlay : MonoBehaviour
         {
             SetGameOverText("Its a Draw");
             restartBtn.SetActive(true);
+            backbttt.SetActive(true);
             SetPlayerColorsInActive();
         }
     }
@@ -228,6 +231,7 @@ public class ComputerSideGmaePlay : MonoBehaviour
         SetBoardInteractable(false);
         SetGameOverText(playerSide + " Wins!");
         restartBtn.SetActive(true);
+        backbttt.SetActive(true);
     }
 
     void SetGameOverText(string value)
@@ -238,11 +242,15 @@ public class ComputerSideGmaePlay : MonoBehaviour
 
     public void ResetBtn() // ======================== Restart game here  ================================
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
         setPlayerButtons(true);
         SetPlayerColorsInActive();
         playerMove = true;
         delay = 10;
+    }
+    public void backcbtn()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
     public void SetBoardInteractable(bool toggle)
     {
