@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject gameWinPanel;
     [SerializeField] GameObject gameOverText;
     [SerializeField] GameObject gamewinText;
-    // Start is called before the first frame update
+
     void Start()
     {
         if (Instance == null)
@@ -25,13 +25,6 @@ public class UIManager : MonoBehaviour
         }
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void pauseButon()
     {
         Time.timeScale = 0;

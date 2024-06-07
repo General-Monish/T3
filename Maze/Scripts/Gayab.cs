@@ -9,10 +9,4 @@ public class Gayab : MonoBehaviour
     {
         Destroy(gameObject,3f);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
